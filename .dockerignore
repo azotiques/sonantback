@@ -1,0 +1,6 @@
+target
+.idea
+.git
+src.zip
+.env
+**/.DS_Store

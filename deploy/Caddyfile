@@ -1,0 +1,13 @@
+{
+	email {$ACME_EMAIL}
+}
+
+{$API_DOMAIN} {
+	encode zstd gzip
+	reverse_proxy app:8082
+}
+
+{$AUTH_DOMAIN} {
+	encode zstd gzip
+	reverse_proxy keycloak:8080
+}
