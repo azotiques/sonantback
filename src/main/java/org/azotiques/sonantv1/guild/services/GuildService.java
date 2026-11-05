@@ -167,13 +167,11 @@ public class GuildService {
         guild.setMemberIds(Set.of(userId1, userId2));
         guild.setGuildType(DM);
         Channel channel = new Channel();
+        channel.setName("dm");
+        channel.setType(MESSAGE);
         channel.setUserIds(Set.of(userId1, userId2));
-        channel.setGuild(guild);
         guild.addChannel(channel);
-        guild = guildRepository.save(guild);
-        channelRepository.save(channel);
-
-        return guild;
+        return guildRepository.save(guild);
     }
 
 }
