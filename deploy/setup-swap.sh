@@ -2,7 +2,7 @@
 # One-time: add 2 GB swap so a memory spike doesn't OOM-kill a container.
 set -e
 [ -f /swapfile ] && { echo "swapfile already exists"; exit 0; }
-fallocate -l 2G /swapfile
+dd if=/dev/zero of=/swapfile bs=1M count=2048 status=none   # dd is safest on XFS (Amazon Linux)
 chmod 600 /swapfile
 mkswap /swapfile
 swapon /swapfile

@@ -17,7 +17,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     private final JwtChannelInterceptor jwtChannelInterceptor;
 
     @Value("${ALLOWED_ORIGINS}")
-    private String ALLOWED_ORIGINS;
+    private String[] ALLOWED_ORIGINS;
 
     @Value("${RABBITMQ_HOST:localhost}")
     private String RABBITMQ_HOST;

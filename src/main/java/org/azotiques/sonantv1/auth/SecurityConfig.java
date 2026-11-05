@@ -27,7 +27,7 @@ public class SecurityConfig {
     private String KEYCLOAK_JWK_URI;
 
     @Value("${ALLOWED_ORIGINS}")
-    private String ALLOWED_ORIGINS;
+    private String[] ALLOWED_ORIGINS;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) {
