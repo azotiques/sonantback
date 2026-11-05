@@ -6,6 +6,7 @@ public record RelationshipDto(
     Status status,
     UserDto incomingUser,
     UserDto outgoingUser,
-    Long guildId
+    Long guildId,
+    Long channelId
 ) {
 }

@@ -12,5 +12,5 @@ public interface UserApi {
     Optional<Long> findIdByUsername(String username);
     Map<String, UserDto> findAllById(Collection<Long> ids);
     UserDto findDtoBySub(String sub);
-    void assignGuildToRelationship(Long relationshipId, Long guildId);
+    void assignGuildToRelationship(Long relationshipId, Long guildId, Long channelId);
 }

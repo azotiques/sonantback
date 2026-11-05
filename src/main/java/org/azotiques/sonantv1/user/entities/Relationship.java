@@ -27,6 +27,8 @@ public class Relationship {
 
     private Long guildId;
 
+    private Long channelId;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "outgoing_user_id", nullable = false)
     private User outgoingUser;

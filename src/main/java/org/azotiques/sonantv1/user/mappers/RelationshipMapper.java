@@ -13,7 +13,8 @@ public class RelationshipMapper {
                 relationship.getStatus(),
                 UserMapper.toUserDto(relationship.getIncomingUser()),
                 UserMapper.toUserDto(relationship.getOutgoingUser()),
-                relationship.getGuildId()
+                relationship.getGuildId(),
+                relationship.getChannelId()
         );
     }
 

@@ -70,10 +70,11 @@ public class RelationshipService {
     }
 
     @Transactional
-    public void assignGuild(Long relationshipId, Long guildId) {
+    public void assignGuild(Long relationshipId, Long guildId, Long channelId) {
         Relationship relationship = relationshipRepository.findById(relationshipId)
                 .orElseThrow(() -> new RelationshipNotFoundException("Couldn't find relationship"));
         relationship.setGuildId(guildId);
+        relationship.setChannelId(channelId);
         relationshipRepository.save(relationship);
     }
 

@@ -59,8 +59,8 @@ public class UserApiImpl implements UserApi {
     }
 
     @Override
-    public void assignGuildToRelationship(Long relationshipId, Long guildId) {
-        relationshipService.assignGuild(relationshipId, guildId);
+    public void assignGuildToRelationship(Long relationshipId, Long guildId, Long channelId) {
+        relationshipService.assignGuild(relationshipId, guildId, channelId);
     }
 
 }

@@ -17,7 +17,7 @@ public class DirectGuildListener {
     @EventListener
     void on (RelationshipCreated event) {
         Guild guild = guildService.createDirectMessagingChannel(event.outgoingUserId(), event.incomingUserId());
-        userApi.assignGuildToRelationship(event.relationshipId(), guild.getId());
+        userApi.assignGuildToRelationship(event.relationshipId(), guild.getId(), guild.getChannels().getFirst().getId());
     }
 
 }
