@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RelationshipMapper {
+
     static public RelationshipDto toRelationshipDto(Relationship relationship) {
         return new RelationshipDto(
                 relationship.getStatus(),

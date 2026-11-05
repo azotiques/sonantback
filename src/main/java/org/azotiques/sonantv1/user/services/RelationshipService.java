@@ -64,8 +64,16 @@ public class RelationshipService {
         relationship.setIncomingUser(incomingUser);
         relationship.setStatus(PENDING);
 
-        events.publishEvent(new RelationshipCreated(outgoingUser.getId(), incomingUser.getId()));
+        relationship = relationshipRepository.save(relationship);
 
+        events.publishEvent(new RelationshipCreated(relationship.getId(), outgoingUser.getId(), incomingUser.getId()));
+    }
+
+    @Transactional
+    public void assignGuild(Long relationshipId, Long guildId) {
+        Relationship relationship = relationshipRepository.findById(relationshipId)
+                .orElseThrow(() -> new RelationshipNotFoundException("Couldn't find relationship"));
+        relationship.setGuildId(guildId);
         relationshipRepository.save(relationship);
     }
 

@@ -21,6 +21,7 @@ public class UserApiImpl implements UserApi {
 
     private final UserProvisioningService userProvisioningService;
     private final UserRepository userRepository;
+    private final RelationshipService relationshipService;
 
     @Override
     public Long provision(Jwt jwt) {
@@ -57,5 +58,9 @@ public class UserApiImpl implements UserApi {
         return UserMapper.toUserDto(userRepository.findBySub(sub).orElseThrow(UserNotFoundException::new));
     }
 
+    @Override
+    public void assignGuildToRelationship(Long relationshipId, Long guildId) {
+        relationshipService.assignGuild(relationshipId, guildId);
+    }
 
 }
