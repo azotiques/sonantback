@@ -95,6 +95,9 @@ services:
       KC_HTTP_ENABLED: "true"
       KC_PROXY_HEADERS: xforwarded
       JAVA_OPTS_KC_HEAP: "-Xms256m -Xmx512m"
+    volumes:
+      - ./deploy/keycloak/themes:/opt/keycloak/themes:ro
+      - ./deploy/keycloak/providers:/opt/keycloak/providers:ro
     depends_on:
       postgres:
         condition: service_healthy
