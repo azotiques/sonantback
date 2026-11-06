@@ -2,8 +2,19 @@ server:
   port: ${SERVER_PORT:8082}
   forward-headers-strategy: framework
 spring:
+  cloud:
+    aws:
+      credentials:
+        access-key: ${AWS_ACCESS_KEY}
+        secret-key: ${AWS_SECRET_KEY}
+      region:
+        static: ${AWS_REGION:eu-north-1}
   application:
     name: sonantv1
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
   datasource:
     url: ${POSTGRES_URL}
     username: ${POSTGRES_USER}
@@ -12,3 +23,6 @@ spring:
     hibernate:
       ddl-auto: ${JPA_DDL_AUTO:create-drop}
     show-sql: ${JPA_SHOW_SQL:true}
+application:
+  storage:
+    bucket: ${AWS_S3_BUCKET:sonant-avatar-bucket}

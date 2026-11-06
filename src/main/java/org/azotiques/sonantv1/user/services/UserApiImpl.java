@@ -22,6 +22,7 @@ public class UserApiImpl implements UserApi {
     private final UserProvisioningService userProvisioningService;
     private final UserRepository userRepository;
     private final RelationshipService relationshipService;
+    private final UserMapper userMapper;
 
     @Override
     public Long provision(Jwt jwt) {
@@ -49,13 +50,13 @@ public class UserApiImpl implements UserApi {
                 .stream()
                 .collect(Collectors.toMap(
                         user -> user.getId().toString(),
-                        UserMapper::toUserDto
+                        userMapper::toUserDto
                 ));
     }
 
     @Override
     public UserDto findDtoBySub(String sub) {
-        return UserMapper.toUserDto(userRepository.findBySub(sub).orElseThrow(UserNotFoundException::new));
+        return userMapper.toUserDto(userRepository.findBySub(sub).orElseThrow(UserNotFoundException::new));
     }
 
     @Override

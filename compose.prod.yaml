@@ -39,6 +39,8 @@ services:
       RABBITMQ_PASS: ${RABBITMQ_PASSWORD}
       KEYCLOAK_JWK_URI: http://keycloak:8080/realms/${KEYCLOAK_REALM}/protocol/openid-connect/certs
       ALLOWED_ORIGINS: ${ALLOWED_ORIGINS}
+      AWS_ACCESS_KEY: ${AWS_ACCESS_KEY}
+      AWS_SECRET_KEY: ${AWS_SECRET_KEY}
     depends_on:
       postgres:
         condition: service_healthy

@@ -25,6 +25,8 @@ public class User {
     @Column(unique = true, nullable = false)
     private String sub;
 
+    private Boolean accountSetup = false;
+
     private String username;
 
     private String avatar;
