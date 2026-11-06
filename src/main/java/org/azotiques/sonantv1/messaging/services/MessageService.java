@@ -5,10 +5,10 @@ import org.azotiques.sonantv1.guild.GuildApi;
 import org.azotiques.sonantv1.messaging.dtos.MessageDto;
 import org.azotiques.sonantv1.messaging.dtos.MessageRequest;
 import org.azotiques.sonantv1.messaging.entities.Message;
+import org.azotiques.sonantv1.messaging.exceptions.MessageNotFoundException;
 import org.azotiques.sonantv1.messaging.mappers.MessageMapper;
 import org.azotiques.sonantv1.messaging.repositories.MessageRepository;
 import org.azotiques.sonantv1.user.UserApi;
-import org.azotiques.sonantv1.user.UserDto;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +30,8 @@ public class MessageService {
         Long guild = guildApi.findGuildByMemberAndIdAndChannelId(userId, guildId, channelId);
         Long channel = guildApi.findChannelByMemberAndIdAndGuildId(userId, channelId, guildId);
 
-        Message message = messageRepository.findByIdAndGuildAndChannel(messageRequest.messageId(), guild, channel).orElseThrow(() -> new RuntimeException("Message not found"));
+        Message message = messageRepository.findByIdAndGuildAndChannel(messageRequest.messageId(), guild, channel)
+                .orElseThrow(() -> new MessageNotFoundException("Message not found"));
 
         messageRepository.delete(message);
     }

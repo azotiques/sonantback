@@ -1,8 +1,9 @@
 package org.azotiques.sonantv1.guild.exceptions;
 
 import lombok.experimental.StandardException;
+import org.azotiques.sonantv1.exceptions.NotFoundException;
 
 @StandardException
-public class GuildNotFoundException extends RuntimeException {
+public class GuildNotFoundException extends NotFoundException {
 
 }

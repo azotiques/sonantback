@@ -37,6 +37,7 @@ public class RelationshipController {
 
     @PostMapping("/relationship/create")
     @Transactional
+    @ResponseStatus(HttpStatus.CREATED)
     public void createRelationship(@AuthenticationPrincipal Jwt jwt, @RequestBody RelationshipRequest relationshipRequest) {
         relationshipService.createRelationship(jwt, relationshipRequest);
     }

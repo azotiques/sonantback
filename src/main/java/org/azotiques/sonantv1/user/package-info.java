@@ -1,6 +1,6 @@
 @ApplicationModule(
         displayName = "Users",
-        allowedDependencies = {"utils", "storage"}
+        allowedDependencies = {"utils", "storage", "exceptions"}
 )
 package org.azotiques.sonantv1.user;
 

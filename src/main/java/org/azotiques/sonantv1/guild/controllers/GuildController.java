@@ -20,34 +20,38 @@ public class GuildController {
     private final GuildService guildService;
 
     @DeleteMapping("/guild/{guildId}/{channelId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteChannel(@AuthenticationPrincipal Jwt jwt, @PathVariable("guildId") Long guildId, @PathVariable("channelId") Long channelId) {
         guildService.deleteChannel(jwt, guildId, channelId);
     }
 
     @DeleteMapping("/guild/{guildId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteGuild(@AuthenticationPrincipal Jwt jwt, @PathVariable("guildId") Long guildId) {
         guildService.deleteGuild(jwt, guildId);
     }
 
     @PutMapping("/guild/{guildId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateGuild(@AuthenticationPrincipal Jwt jwt, @PathVariable("guildId") Long guildId, @RequestBody GuildRequest guildRequest) {
         guildService.updateGuild(jwt, guildId, guildRequest);
     }
 
     @PostMapping("/guild/invite/{inviteCode}")
     @Transactional
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void invite(@AuthenticationPrincipal Jwt jwt, @PathVariable String inviteCode) {
         guildService.invite(jwt, inviteCode);
     }
 
     @PostMapping("/guild/{guildId}/invite")
     public ResponseEntity<InviteResponse> invite(@AuthenticationPrincipal Jwt jwt, @PathVariable Long guildId, @RequestBody InviteRequest inviteRequest) {
-        return new ResponseEntity<>(guildService.invite(jwt, guildId, inviteRequest), HttpStatus.OK);
+        return new ResponseEntity<>(guildService.invite(jwt, guildId, inviteRequest), HttpStatus.CREATED);
     }
 
     @PostMapping("/guild/{guildId}")
     public ResponseEntity<ChannelDto> createChannel(@AuthenticationPrincipal Jwt jwt, @PathVariable Long guildId, @RequestBody ChannelDto channelDto) {
-        return new ResponseEntity<>(guildService.createChannel(jwt, guildId, channelDto), HttpStatus.OK);
+        return new ResponseEntity<>(guildService.createChannel(jwt, guildId, channelDto), HttpStatus.CREATED);
     }
 
     @GetMapping("/guild/{guildId}")
@@ -63,6 +67,6 @@ public class GuildController {
     @PostMapping("/guild")
     @Transactional
     public ResponseEntity<GuildDto> createGuild(@AuthenticationPrincipal Jwt jwt, @RequestBody GuildRequest guildRequest) {
-        return new ResponseEntity<>(guildService.createGuild(jwt, guildRequest), HttpStatus.OK);
+        return new ResponseEntity<>(guildService.createGuild(jwt, guildRequest), HttpStatus.CREATED);
     }
 }

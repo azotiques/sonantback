@@ -1,6 +1,6 @@
 @ApplicationModule(
         displayName = "Guilds",
-        allowedDependencies = {"user", "utils"}
+        allowedDependencies = {"user", "utils", "exceptions"}
 )
 package org.azotiques.sonantv1.guild;
 

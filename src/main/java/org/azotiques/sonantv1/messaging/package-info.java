@@ -1,6 +1,6 @@
 @ApplicationModule(
         displayName = "Messaging",
-        allowedDependencies = {"guild", "user", "utils"}
+        allowedDependencies = {"guild", "user", "utils", "exceptions"}
 )
 package org.azotiques.sonantv1.messaging;
 

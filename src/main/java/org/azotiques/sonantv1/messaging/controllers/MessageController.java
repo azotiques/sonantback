@@ -20,6 +20,7 @@ public class MessageController {
     private final MessageService messageService;
 
     @DeleteMapping("/messages/{guildId}/{channelId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteMessage(@AuthenticationPrincipal Jwt jwt, @RequestBody MessageRequest messageRequest, @PathVariable Long guildId, @PathVariable Long channelId) {
         messageService.deleteMessage(jwt, messageRequest, guildId, channelId);
     }
