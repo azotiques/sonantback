@@ -1,10 +1,8 @@
 services:
   redis:
-    image: redis:7-alpine
+    image: redis:alpine
     restart: unless-stopped
-    command: redis-server --maxmemory 64mb --maxmemory-policy allkeys-lru
-    volumes:
-      - redis-data:/data
+    command: redis-server --save "" --appendonly no --maxmemory 64mb --maxmemory-policy allkeys-lru
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
@@ -125,5 +123,3 @@ volumes:
   rabbitmq_data:
   caddy_data:
   caddy_config:
-  redis-data:
-    driver: local
