@@ -16,7 +16,7 @@ public class UserMapper {
     private final FileStorageApi fileStorage;
 
     public UserDto toUserDto(User user) {
-        return new UserDto(user.getId(), user.getAccountSetup(), user.getUsername(), user.getAvatar() != null ? fileStorage.getUrl(user.getAvatar()) : null, user.getCreatedAt());
+        return new UserDto(user.getId().toString(), null, user.getAccountSetup(), user.getUsername(), user.getAvatar() != null ? fileStorage.getUrl(user.getAvatar()) : null, user.getCreatedAt());
     }
 
     public List<UserDto> toUserDtos(List<User> users) {

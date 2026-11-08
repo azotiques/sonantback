@@ -1,6 +1,6 @@
 @ApplicationModule(
         displayName = "Realtime",
-        allowedDependencies = {"guild", "user", "messaging"}
+        allowedDependencies = {"guild", "user", "messaging", "storage"}
 )
 package org.azotiques.sonantv1.realtime;
 

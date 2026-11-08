@@ -2,8 +2,8 @@ package org.azotiques.sonantv1.user.controllers;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.azotiques.sonantv1.user.dtos.RelationshipDto;
-import org.azotiques.sonantv1.user.dtos.RelationshipRequest;
+import org.azotiques.sonantv1.user.RelationshipDto;
+import org.azotiques.sonantv1.user.RelationshipRequest;
 import org.azotiques.sonantv1.user.services.RelationshipService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

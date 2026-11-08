@@ -3,13 +3,13 @@ package org.azotiques.sonantv1.user.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.azotiques.sonantv1.user.dtos.PreferredUserStatus;
+import org.azotiques.sonantv1.user.UserStatus;
 import org.azotiques.sonantv1.utils.SnowflakeId;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -21,6 +21,12 @@ public class User {
     @Id
     @SnowflakeId
     private Long id;
+
+    @Enumerated(EnumType.STRING)
+    private PreferredUserStatus preferredUserStatus;
+
+    @Enumerated(EnumType.STRING)
+    private UserStatus status;
 
     @Column(unique = true, nullable = false)
     private String sub;

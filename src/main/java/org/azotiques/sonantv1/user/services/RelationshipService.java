@@ -4,8 +4,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.azotiques.sonantv1.user.RelationshipCreated;
 import org.azotiques.sonantv1.user.UserNotFoundException;
-import org.azotiques.sonantv1.user.dtos.RelationshipDto;
-import org.azotiques.sonantv1.user.dtos.RelationshipRequest;
+import org.azotiques.sonantv1.user.RelationshipDto;
+import org.azotiques.sonantv1.user.RelationshipRequest;
 import org.azotiques.sonantv1.user.entities.Relationship;
 import org.azotiques.sonantv1.user.entities.User;
 import org.azotiques.sonantv1.user.exceptions.RelationshipNotFoundException;
@@ -30,6 +30,7 @@ public class RelationshipService {
     private final ApplicationEventPublisher events;
     private final RelationshipMapper relationshipMapper;
 
+    @Transactional
     public RelationshipDto updateRelationship(Jwt jwt, RelationshipRequest relationshipRequest) {
         User outgoingUser = userRepository.findBySub(jwt.getSubject()).orElseThrow(() -> new UserNotFoundException("Couldn't find user"));
         User incomingUser = userRepository.findByUsername(relationshipRequest.outgoingUser()).orElseThrow(() -> new UserNotFoundException("Couldn't find user"));
@@ -38,12 +39,21 @@ public class RelationshipService {
         return relationshipMapper.toRelationshipDto(relationshipRepository.save(relationship));
     }
 
+    @Transactional
     public List<RelationshipDto> getRelationshipFriends(Jwt jwt) {
         User user = userRepository.findBySub(jwt.getSubject()).orElseThrow(() -> new UserNotFoundException("Couldn't find user"));
-        List<Relationship> relationship = relationshipRepository.findByOutgoingUserOrIncomingUserAndStatus(user, user, FRIENDS);
+        List<Relationship> relationship = relationshipRepository.findByUserAndStatus(user, FRIENDS);
         return relationshipMapper.toRelationshipDtos(relationship);
     }
 
+    @Transactional
+    public List<RelationshipDto> getRelationshipFriendsByUserId(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("Couldn't find user"));
+        List<Relationship> relationship = relationshipRepository.findByUserAndStatus(user, FRIENDS);
+        return relationshipMapper.toRelationshipDtos(relationship);
+    }
+
+    @Transactional
     public List<RelationshipDto> getRelationships(Jwt jwt) {
         User user = userRepository.findBySub(jwt.getSubject()).orElseThrow(() -> new UserNotFoundException("Couldn't find user"));
         List<Relationship> relationship = relationshipRepository.findByIncomingUser(user);

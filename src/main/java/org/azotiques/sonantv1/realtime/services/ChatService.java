@@ -23,14 +23,15 @@ public class ChatService {
     @Transactional
     public SendMessageResponse save(Jwt jwt, ChatMessage chatMessage, Long guildId, Long channelId) {
         UserDto user = userApi.findDtoBySub(jwt.getSubject());
-        Long guild = guildApi.findGuildByMemberAndIdAndChannelId(user.id(), guildId, channelId);
-        Long channel = guildApi.findChannelByMemberAndIdAndGuildId(user.id(), channelId, guildId);
+        Long guild = guildApi.findGuildByMemberAndIdAndChannelId(Long.parseLong(user.id()), guildId, channelId);
+        Long channel = guildApi.findChannelByMemberAndIdAndGuildId(Long.parseLong(user.id()), channelId, guildId);
 
         SendMessageRequest messageDto = new SendMessageRequest(
                 chatMessage.message(),
                 user,
-                guild,
-               channel
+                guild.toString(),
+                channel.toString(),
+                chatMessage.attachments()
         );
 
         return messagingApi.sendMessage(messageDto);

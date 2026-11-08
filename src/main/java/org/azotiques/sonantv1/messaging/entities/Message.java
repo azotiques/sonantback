@@ -10,7 +10,11 @@ import org.azotiques.sonantv1.utils.SnowflakeId;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -29,9 +33,13 @@ public class Message {
 
     private Long channel;
 
+
     private Long guild;
 
     @CreatedDate
-    private LocalDateTime createdAt;
+    private Instant createdAt;
+
+    @JdbcTypeCode(SqlTypes.ARRAY)
+    private List<String> attachments = new ArrayList<>();
 
 }

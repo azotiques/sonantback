@@ -1,6 +1,6 @@
-package org.azotiques.sonantv1.user.dtos;
+package org.azotiques.sonantv1.user;
 
-import org.azotiques.sonantv1.user.UserDto;
+import org.azotiques.sonantv1.user.dtos.Status;
 
 public record RelationshipDto(
     Status status,

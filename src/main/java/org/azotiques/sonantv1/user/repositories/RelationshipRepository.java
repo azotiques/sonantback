@@ -13,10 +13,23 @@ public interface RelationshipRepository extends JpaRepository<Relationship, Long
     @Query(
             """
             SELECT r FROM Relationship r
+            JOIN FETCH r.incomingUser
+            JOIN FETCH r.outgoingUser
             WHERE r.incomingUser = :user
             """
     )
     List<Relationship> findByIncomingUser(User user);
+
+    @Query(
+            """
+            SELECT r FROM Relationship r
+            JOIN FETCH r.incomingUser
+            JOIN FETCH r.outgoingUser
+            WHERE (r.outgoingUser = :user OR r.incomingUser = :user)
+              AND r.status = :status
+            """
+    )
+    List<Relationship> findByUserAndStatus(User user, Status status);
 
     List<Relationship> findByOutgoingUserAndStatus(User user, Status status);
 
@@ -25,4 +38,6 @@ public interface RelationshipRepository extends JpaRepository<Relationship, Long
     Optional<Relationship> findByIncomingUserAndOutgoingUser(User incomingUser, User outgoingUser);
 
     List<Relationship> findByOutgoingUserOrIncomingUserAndStatus(User incomingUser, User outgoingUser, Status status);
+
+    List<Relationship> findByOutgoingUserOrIncomingUser(User user, User user1);
 }

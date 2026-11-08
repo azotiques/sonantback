@@ -27,7 +27,11 @@ public class JwtChannelInterceptor implements ChannelInterceptor {
     private final JwtDecoder jwtDecoder;
     private final UserApi userApi;
     private final GuildApi guildApi;
-    private static final String PATTERN = "/topic/chat.guild.{guildId}.{channelId}";
+    private static final String CHANNEL_PATTERN = "/topic/chat.guild.{guildId}.{channelId}";
+    private static final String TYPING_PATTERN = "/topic/chat.guild.{guildId}.{channelId}.typing";
+    private static final String RELATIONSHIP_PATTERN = "/topic/relationships.{userId}";
+    private static final String FRIENDS_PATTERN = "/topic/relationships.friends.{userId}";
+    private static final String PRESENCE_PATTERN = "/topic/presence.{userId}";
     private final AntPathMatcher matcher = new AntPathMatcher();
 
 
@@ -54,14 +58,22 @@ public class JwtChannelInterceptor implements ChannelInterceptor {
 
             Jwt jwt = (Jwt) auth.getPrincipal();
 
-            if(matcher.match(PATTERN, accessor.getDestination())) {
-                Map<String, String> variables = matcher.extractUriTemplateVariables(PATTERN, accessor.getDestination());
+            if (matcher.match(TYPING_PATTERN, accessor.getDestination())) {
+                return message;
+            } else if (matcher.match(CHANNEL_PATTERN, accessor.getDestination())) {
+                Map<String, String> variables = matcher.extractUriTemplateVariables(CHANNEL_PATTERN, accessor.getDestination());
                 String guildId = variables.get("guildId");
                 String channelId = variables.get("channelId");
 
                 guildApi.guildCheck(jwt, guildId, channelId);
+            } else if (matcher.match(RELATIONSHIP_PATTERN, accessor.getDestination())) {
+                return message;
+            } else if (matcher.match(FRIENDS_PATTERN, accessor.getDestination())) {
+                return message;
+            } else if (matcher.match(PRESENCE_PATTERN, accessor.getDestination())) {
+                return message;
             } else {
-                throw new AccessDeniedException("Access denied");
+                    throw new AccessDeniedException("Access denied");
             }
         }
 

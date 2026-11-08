@@ -30,6 +30,7 @@ public class UserService {
         User user = userRepository.findBySub(jwt.getSubject()).orElseThrow(() -> new UserNotFoundException("User not found"));
 
         var avatar = request.avatar();
+
         if (avatar != null && !avatar.isEmpty()) {
             String contentType = avatar.getContentType();
             if (contentType == null || !contentType.startsWith("image/")) {

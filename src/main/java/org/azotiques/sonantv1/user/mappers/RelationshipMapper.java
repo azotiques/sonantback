@@ -1,7 +1,7 @@
 package org.azotiques.sonantv1.user.mappers;
 
 import lombok.RequiredArgsConstructor;
-import org.azotiques.sonantv1.user.dtos.RelationshipDto;
+import org.azotiques.sonantv1.user.RelationshipDto;
 import org.azotiques.sonantv1.user.entities.Relationship;
 import org.springframework.stereotype.Component;
 
